@@ -20,7 +20,7 @@ esac
 
 plugin_root=""
 if [ -f "$script_path" ]; then
-  here=$(CDPATH= cd -- "$(dirname -- "$script_path")" && pwd)
+  here=$(CDPATH='' cd -- "$(dirname -- "$script_path")" && pwd)
   [ -f "$here/scripts/configure.py" ] && plugin_root=$here
 fi
 if [ -z "$plugin_root" ] && [ -f "$INSTALL_DIR/scripts/configure.py" ]; then

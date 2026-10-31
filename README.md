@@ -1,6 +1,10 @@
 # grove-rex
 
+[![test](https://github.com/nicksenap/grove-rex/actions/workflows/test.yml/badge.svg)](https://github.com/nicksenap/grove-rex/actions/workflows/test.yml)
+
 [Grove](https://github.com/nicksenap/grove) workspace create, inside [Rex](https://www.superlogical.com/rex).
+
+![Name the workspace](docs/1-name.png)
 
 `cmd+g` opens a popup. You name the workspace, pick a preset or repos, and confirm the branch. It then runs `gw create` and opens the workspace as a Rex session. `gw delete` (and `gw go -bd`) closes that session again.
 
@@ -58,6 +62,10 @@ Removes the `init.lua` block and restores the `pre_delete` hook that was there b
 4. Confirm the branch. It defaults to the workspace name.
 5. `gw create` runs. A Rex session opens on the workspace and the app switches to it.
 
+| Preset or repos | Pick repos manually | Branch |
+| --- | --- | --- |
+| ![Pick a preset](docs/2-source.png) | ![Pick repos](docs/3-repos.png) | ![Confirm the branch](docs/4-branch.png) |
+
 Escape goes back one step. The command palette also has **Create Grove Workspace (Split Below)**, which runs the same flow in a pane under the focused one instead of a popup.
 
 ## Grove hooks
@@ -82,4 +90,5 @@ Each Rex server reads its own `init.lua`, and the popup runs on the server whose
 | `hooks/create.sh` | The popup: name, preset or repos, branch, `gw create`, Rex session |
 | `hooks/pre-delete.sh` | Grove `pre_delete`: runs the previous hook, then kills the Rex session |
 | `scripts/configure.py` | Idempotent edits to `init.lua` and Grove's `config.toml` |
-| `tests/test-configure.sh` | Tests for `configure.py` and the hook chain |
+| `tests/test-configure.sh` | Tests for `configure.py` and the hook chain. CI runs it on Ubuntu and macOS, along with shellcheck and Lua 5.1/Python syntax checks |
+| `docs/` | Screenshots, taken with a stub `gw` and demo repos |

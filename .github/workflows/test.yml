@@ -1,0 +1,37 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: configure.py and hook chain
+        run: sh tests/test-configure.sh
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: |
+          shellcheck -S warning install.sh uninstall.sh check.sh hooks/pre-delete.sh tests/test-configure.sh
+          shellcheck -S warning -s bash hooks/create.sh
+      - name: lua syntax (Rex runs Lua 5.1)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq lua5.1
+          luac5.1 -p rex/grove.lua
+      - name: python syntax
+        run: python3 -m py_compile scripts/configure.py

@@ -15,7 +15,7 @@ esac
 
 plugin_root=$INSTALL_DIR
 if [ -f "$script_path" ]; then
-  here=$(CDPATH= cd -- "$(dirname -- "$script_path")" && pwd)
+  here=$(CDPATH='' cd -- "$(dirname -- "$script_path")" && pwd)
   [ -f "$here/rex/grove.lua" ] && plugin_root=$here
 fi
 

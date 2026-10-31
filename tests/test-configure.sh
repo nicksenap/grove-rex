@@ -2,7 +2,7 @@
 # Tests scripts/configure.py and the pre_delete chain against temp configs.
 set -eu
 
-root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+root=$(CDPATH='' cd -- "$(dirname -- "$0")/.." && pwd)
 configure="$root/scripts/configure.py"
 tmp=$(mktemp -d "${TMPDIR:-/tmp}/grove-rex-test.XXXXXX")
 trap 'rm -rf "$tmp"' EXIT HUP INT TERM
@@ -13,7 +13,7 @@ lacks() { ! grep -Fq -- "$2" "$1" || fail "$3 (unexpected: $2)"; }
 
 plugin="$tmp/grove-rex"
 mkdir -p "$plugin/hooks" "$plugin/rex"
-plugin=$(CDPATH= cd -- "$plugin" && pwd -P)
+plugin=$(CDPATH='' cd -- "$plugin" && pwd -P)
 lua="$plugin/rex/grove.lua"
 init="$tmp/init.lua"
 grove="$tmp/config.toml"

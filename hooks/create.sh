@@ -180,7 +180,7 @@ fi
 app_client() {
   rex client ls --json | jq -r '[.clients[] | select(.info.kind == "app")][0].client_id // empty'
 }
-switch_to() { rex -C "$1" do session.select session_id="$sid" >/dev/null 2>&1; }
+switch_to() { rex -C "$1" "do" session.select session_id="$sid" >/dev/null 2>&1; }
 
 # From a key press, $client is the app. From `rex do` it is the CLI, so fall back.
 if ! { [[ -n "$client" ]] && switch_to "$client"; }; then

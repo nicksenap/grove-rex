@@ -19,7 +19,7 @@ need() {
 }
 
 abs_dir() {
-  CDPATH= cd -- "$1" && pwd
+  CDPATH='' cd -- "$1" && pwd
 }
 
 ensure_checkout() {
